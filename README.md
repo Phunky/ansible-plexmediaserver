@@ -14,7 +14,7 @@ This is used soley for transencoding media for each of my Plex clients (iOS, And
 3. Clone this repo on the client machine.
 4. Edit vars.yml to your liking.
   - Make sure to update host value!
-5. run "ansible-playbook main.yml -u root -k".
+5. run "ansible-playbook site.yml -u root -k".
 6. Enter password when prompted.
 7. Go make a cuppa, your not needed anymore.
 
