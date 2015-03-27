@@ -1,0 +1,4 @@
+---
+- hosts: pms
+  roles:
+    - plexmediaserver

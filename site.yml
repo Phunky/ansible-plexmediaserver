@@ -1,6 +1,0 @@
----
-- hosts: pms
-  vars_files:
-    - vars.yml
-  roles:
-    - plex
