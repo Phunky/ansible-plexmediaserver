@@ -1,5 +1,5 @@
 [pms]
-192.168.0.76 hostname=nuc
+10.0.0.5 hostname=nuc
 
 [nas]
-10.0.0.1 hostname=nas
+10.0.0.3 hostname=nas
