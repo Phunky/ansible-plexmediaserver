@@ -1,15 +1,16 @@
 ---
 user_groups:
+ - {name: admin, system: yes}
   - {name: pms, system: yes}
 
 user_sudo_groups:
-  - pms
+  - admin
 
 users:
   phunky:
     name: Mark Harwood
     email: mark@phunky.co.uk
-    group: root
+    group: admin
   plex:
     name: Plex Media Server
     email: mark+pms@phunky.co.uk

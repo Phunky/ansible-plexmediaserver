@@ -1,4 +1,10 @@
 ---
+user_groups:
+ - {name: admin, system: yes}
+
+user_sudo_groups:
+  - admin
+
 users:
   phunky:
     name: Mark Harwood

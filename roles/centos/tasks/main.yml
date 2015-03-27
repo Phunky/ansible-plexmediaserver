@@ -16,7 +16,7 @@
   with_items: user_groups
 
 - name: Add sudo groups to sudoers list
-  lineinfile: dest=/etc/sudoers state=present regexp='^%{{ item }}' line='%{{ item }} ALL=(ALL) ALL'
+  lineinfile: dest=/etc/sudoers state=present regexp='^%{{ item }}' line='%{{ item }} ALL=(ALL) NOPASSWD: ALL'
   with_items: user_sudo_groups
 
 - name: Create user accounts
@@ -26,5 +26,13 @@
 - name: Add authorized_keys
   authorized_key: user={{ item.key }} key="{{ item.value }}"
   with_dict: authorized_keys
+
+- name: Install common apps
+  yum: name={{ item }} state=latest
+  with_items:
+    - wget
+    - http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+    - htop
+    - git
 
 
