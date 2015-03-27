@@ -7,6 +7,17 @@ shard via SAMBA. The NAS is managed by its own Playbook which i'll be sharing sh
 
 This is used soley for transencoding media for each of my Plex clients (iOS, Andriod and Chromecasts) as the NAS wasn't quite powerful to handle this task (It's only Intel ATOM based!).
 
+# How do I run this?
+
+1. Install Ansible on a client machine.
+2. Install CentOS 6.x on the PMS machine.
+3. Clone this repo on the client machine.
+4. Edit vars.yml to your liking.
+  - Make sure to update host value!
+5. run "ansible-playbook main.yml -u root -k".
+6. Enter password when prompted.
+7. Go make a cuppa, your not needed anymore.
+
 # Currently automates the following
 
 - [x] Updating all base install packages.
