@@ -23,4 +23,8 @@
   user: name="{{ item.key }}" comment="{{ item.value.name }}" group="{{ item.value.group }}"
   with_dict: users
 
+- name: Add authorized_keys
+  authorized_key: user={{ item.key }} key="{{ item.value }}"
+  with_dict: authorized_keys
+
 
