@@ -1,0 +1,6 @@
+---
+- name: save iptables
+  command: /sbin/service iptables save
+
+- name: restart iptables
+  service: name=iptables state=restarted

@@ -1,0 +1,26 @@
+---
+- name: Upgrade all currently install packages
+  yum: name=* state=latest
+
+- name: Install libselinux-python
+  yum: name=libselinux-python state=latest
+
+- name: Disable SELinux
+  selinux: state=disabled
+
+- name: Set hostname
+  hostname: name="{{ hostname }}"
+
+- name: Create user groups
+  group: name="{{ item.name }}" system="{{ item.system }}" state=present
+  with_items: user_groups
+
+- name: Add sudo groups to sudoers list
+  lineinfile: dest=/etc/sudoers state=present regexp='^%{{ item }}' line='%{{ item }} ALL=(ALL) ALL'
+  with_items: user_sudo_groups
+
+- name: Create user accounts
+  user: name="{{ item.key }}" comment="{{ item.value.name }}" group="{{ item.value.group }}"
+  with_dict: users
+
+
