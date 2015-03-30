@@ -2,5 +2,5 @@
 10.0.0.5 hostname=nuc
 
 [nas]
-10.0.0.13 hostname=vm
+192.168.0.76 hostname=vm
 #10.0.0.3 hostname=nas

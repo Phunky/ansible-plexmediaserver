@@ -15,11 +15,6 @@ users:
     name: Plex Media Server
     email: mark+pms@phunky.co.uk
     group: pms
-  www:
-    name: www
-    email: mark+www@phunky.co.uk
-    group: pms
-
 
 authorized_keys:
   phunky: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLloo0Ul6HWKTmfEQqdf7TZJcSVLBooanhEkBTnDm1LrWm7hiIEG8CfI/dqLKp+fC/rgY73TwuPSXOYszG5PuiInJY/5QPxFGOE5XYdqCPqt4Jt5+QcFNgDpXaL86O5YEa9RuHT6oRco+BdXWMCSS8u7DnkJWKMIHbz0t4Bfn8yn4msiGPeO3dwGyDnxUK5EGe9Az8puAPAjubc/hV3WljQQBicGJix9/cUvLlgtn+26TS/FWG7UlPY5Pn/6wSaYmJyEZxk9ELddx+a2hl1Hcui2p+dRWEY6LuYNisc/xn/V0GcMtMjXzmNt6oN5LW6N2GBVl8TWJlqPeQd7VrOr4L phunky@Marks-MacBook-Air.local"

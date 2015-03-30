@@ -1,0 +1,15 @@
+---
+- name: Install php-fpm and dependancies
+  yum: name={{ item }} state=present
+  with_items:
+    - php-fpm
+    - php-mysql
+
+- name: Fix cgi.fix_pathinfo=0 in php.ini
+  lineinfile: "dest=/etc/php.ini state=present regexp='cgi.fix_pathinfo=1' line='cgi.fix_pathinfo=0'"
+
+- name: nginx not apache in /etc/php-fpm.d/www.conf
+  lineinfile: "dest=/etc/php-fpm.d/www.conf state=present regexp='apache' line='nginx'"
+
+- name: Restart nginx
+  service: name=nginx state=restarted

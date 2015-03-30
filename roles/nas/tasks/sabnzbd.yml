@@ -19,9 +19,13 @@
 
 - name: Clone latest version of SABnzbd
   git: repo=https://github.com/sabnzbd/sabnzbd.git dest=/etc/sabnzbd accept_hostkey=true
+  ignore_errors: true
 
-- name: Add SABnzbd to init.d
+- name: Copy SABnzbd to init.d
   copy: src=SABnzbd/init.d dest=/etc/init.d/SABnzbd owner=root group=root mode=0751
+
+- name: Add SABnzbd to init.d via chkconfig
+  command: chkconfig --add /etc/init.d/SABnzbd
 
 - name: Assures /etc/sysconfig/sabnzbd dir exists
   file: path=/etc/sysconfig/sabnzbd state=directory
@@ -31,6 +35,7 @@
 
 - name: Ensure SABnzbd daemon  is started
   action: service name=SABnzbd state=started
+  ignore_errors: true
 
 - name: Setup SABnzbd firewall rules
   command: "/sbin/iptables -I INPUT 1 -p tcp --dport {{ item }} -j ACCEPT"

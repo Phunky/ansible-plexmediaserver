@@ -43,7 +43,7 @@ my NAS storage machine.
   - [x] Sickbeard
   - [ ] Couchpatato
   - [ ] Headphones
-  - [ ] Ngnix
+  - [x] Ngnix
   - [ ] PHP-FPM
   - [ ] Hack
   - [ ] MariaDB
