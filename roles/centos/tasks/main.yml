@@ -1,11 +1,31 @@
 ---
-- name: Upgrade all currently install packages
-  yum: name=* state=latest
+- name: import gpg-keys
+  rpm_key: state=present key={{ item }}
+  with_items:
+    - http://apt.sw.be/RPM-GPG-KEY.dag.txt
+    - http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
+    - http://rpms.famillecollet.com/RPM-GPG-KEY-remi
+  ignore_errors: true
+
+- name: install repositories
+  yum: name={{ item }} state=installed
+  with_items:
+    - http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+    - http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+    - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+  ignore_errors: true
+
+# - name: Upgrade all currently install packages
+#   yum: name=* state=latest
 
 - name: Install libselinux-python
   yum: name=libselinux-python state=latest
 
-- name: Disable SELinux
+- name: selinux setenforce 0
+  command: setenforce 0
+  ignore_errors: true
+
+- name: disable selinux
   selinux: state=disabled
 
 - name: Set hostname
@@ -16,7 +36,7 @@
   with_items: user_groups
 
 - name: Add sudo groups to sudoers list
-  lineinfile: dest=/etc/sudoers state=present regexp='^%{{ item }}' line='%{{ item }} ALL=(ALL) NOPASSWD: ALL'
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%{{ item }}' line='%{{ item }} ALL=(ALL) NOPASSWD: ALL'"
   with_items: user_sudo_groups
 
 - name: Create user accounts
@@ -31,7 +51,6 @@
   yum: name={{ item }} state=latest
   with_items:
     - wget
-    - http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
     - htop
     - git
 

@@ -1,9 +1,17 @@
 [global]
-  server string = {{ hostname }}
-  unix password sync = Yes
+workgroup = WORKGROUP
+server string = {{ hostname }}
+security = user
+map to guest = Bad User
+log file = /var/log/samba/%m.log
+max log size = 50
+dns proxy = no
+unix extensions = no
 
 [homes]
-  comment = Home Directories
-  browseable = no
-  writable = yes
-  create mode = 0775
+comment = Home Directories
+writable = yes
+follow symlinks = yes
+wide links = yes
+public = yes
+only guest = yes

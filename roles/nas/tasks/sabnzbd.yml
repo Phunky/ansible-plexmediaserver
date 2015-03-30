@@ -1,0 +1,41 @@
+---
+- name: Add SABnzbd yum repo
+  copy: src=SABnzbd/repo dest=/etc/yum.repos.d/SABnzbd.repo owner=root group=root mode=0644
+
+- name: Install SABnzbd dependancies
+  yum: name={{ item }} state=present
+  with_items:
+    - git
+    - python
+    - python-cheetah
+    - python-configobj
+    - python-feedparser
+    - pyOpenSSL
+    - python-yenc
+    - python-setuptools
+    - par2cmdline
+    - unzip
+    - unrar
+
+- name: Clone latest version of SABnzbd
+  git: repo=https://github.com/sabnzbd/sabnzbd.git dest=/etc/sabnzbd accept_hostkey=true
+
+- name: Add SABnzbd to init.d
+  copy: src=SABnzbd/init.d dest=/etc/init.d/SABnzbd owner=root group=root mode=0751
+
+- name: Assures /etc/sysconfig/sabnzbd dir exists
+  file: path=/etc/sysconfig/sabnzbd state=directory
+
+- name: Copy sabnzbd.ini to /etc/sysconfig/sabnzbd
+  copy: src=SABnzbd/sabnzbd.ini dest=/etc/sysconfig/sabnzbd/sabnzbd.ini owner=root group=root mode=0644
+
+- name: Ensure SABnzbd daemon  is started
+  action: service name=SABnzbd state=started
+
+- name: Setup SABnzbd firewall rules
+  command: "/sbin/iptables -I INPUT 1 -p tcp --dport {{ item }} -j ACCEPT"
+  with_items:
+    - 8080
+  notify:
+    - save iptables
+    - restart iptables

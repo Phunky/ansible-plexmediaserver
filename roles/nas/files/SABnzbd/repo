@@ -1,0 +1,6 @@
+[SABnzbd]
+name=SABnzbd for RHEL 6 and clones - $basearch - Base
+baseurl=https://dl.dropboxusercontent.com/u/14500830/SABnzbd/RHEL-CentOS/6/
+failovermethod=priority
+enabled=1
+gpgcheck=0

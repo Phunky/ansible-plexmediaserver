@@ -1,0 +1,17 @@
+---
+- name: Clone latest version of SickBeard
+  git: repo=https://github.com/midgetspy/Sick-Beard.git dest=/etc/sickbeard accept_hostkey=true
+
+- name: Add SickBeard to init.d
+  copy: src=SickBeard/init.d dest=/etc/init.d/SickBeard owner=root group=root mode=0751
+
+- name: Ensure SickBeard daemon  is started
+  action: service name=SickBeard state=started
+
+- name: Setup SickBeard firewall rules
+  command: "/sbin/iptables -I INPUT 1 -p tcp --dport {{ item }} -j ACCEPT"
+  with_items:
+    - 8081
+  notify:
+    - save iptables
+    - restart iptables

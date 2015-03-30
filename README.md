@@ -38,14 +38,15 @@ my NAS storage machine.
 - [x] Create user groups.
 - [x] Create user accounts.
 - [x] Adds users to sudoers list.
-- [ ] Installation and configuration of
-  - Sabnzbd
-  - Sickbeard
-  - Couchpatato
-  - Headphones
-  - Ngnix
-  - PHP-FPM
-  - Hack
-  - MariaDB
-  - Dnsmasq
+- Installation and configuration of
+  - [x] Sabnzbd
+  - [x] Sickbeard
+  - [ ] Couchpatato
+  - [ ] Headphones
+  - [ ] Ngnix
+  - [ ] PHP-FPM
+  - [ ] Hack
+  - [ ] MariaDB
+  - [ ] Dnsmasq
+  - [ ] Steam Lancache
 

@@ -1,0 +1,25 @@
+---
+- name: Install nginx dependancies
+  yum: name={{ item }} state=present
+  with_items:
+    - nginx
+
+- name: Create /var/www
+  file: path=/var/www owner=www group=www mode=0755 state=directory
+
+- name: Create /var/www/index.html
+  copy: src=nginx/index dest=/var/www owner=www group=www mode=0755
+
+- name: Create conf.d/virtual.conf
+  copy: src=nginx/conf.d/virtual.conf dest=/etc/nginx/conf.d owner=root group=root mode=0755
+
+- name: Ensure nginx daemon  is started
+  action: service name=nginx state=started
+
+- name: Setup nginx firewall rules
+  command: "/sbin/iptables -I INPUT 1 -p tcp --dport {{ item }} -j ACCEPT"
+  with_items:
+    - 80
+  notify:
+    - save iptables
+    - restart iptables

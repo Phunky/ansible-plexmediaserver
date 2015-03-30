@@ -1,6 +1,6 @@
 ---
 user_groups:
- - {name: admin, system: yes}
+  - {name: admin, system: yes}
   - {name: pms, system: yes}
 
 user_sudo_groups:
