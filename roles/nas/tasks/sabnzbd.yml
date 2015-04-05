@@ -1,46 +1,19 @@
 ---
-- name: Add SABnzbd yum repo
-  copy: src=SABnzbd/repo dest=/etc/yum.repos.d/SABnzbd.repo owner=root group=root mode=0644
+- name: Add sabnzbd repo
+  apt_repository: repo='ppa:jcfp/ppa' state=present
 
-- name: Install SABnzbd dependancies
-  yum: name={{ item }} state=present
+- name: Install sabnzbd
+  apt: name={{ item }} state=present
   with_items:
-    - git
-    - python
-    - python-cheetah
-    - python-configobj
-    - python-feedparser
-    - pyOpenSSL
-    - python-yenc
-    - python-setuptools
-    - par2cmdline
-    - unzip
-    - unrar
+    - sabnzbdplus
+    - sabnzbdplus-theme-mobile
 
-- name: Clone latest version of SABnzbd
-  git: repo=https://github.com/sabnzbd/sabnzbd.git dest=/etc/sabnzbd accept_hostkey=true
-  ignore_errors: true
-
-- name: Copy SABnzbd to init.d
-  copy: src=SABnzbd/init.d dest=/etc/init.d/SABnzbd owner=root group=root mode=0751
-
-- name: Add SABnzbd to init.d via chkconfig
-  command: chkconfig --add /etc/init.d/SABnzbd
-
-- name: Assures /etc/sysconfig/sabnzbd dir exists
-  file: path=/etc/sysconfig/sabnzbd state=directory
-
-- name: Copy sabnzbd.ini to /etc/sysconfig/sabnzbd
-  copy: src=SABnzbd/sabnzbd.ini dest=/etc/sysconfig/sabnzbd/sabnzbd.ini owner=root group=root mode=0644
-
-- name: Ensure SABnzbd daemon  is started
-  action: service name=SABnzbd state=started
-  ignore_errors: true
-
-- name: Setup SABnzbd firewall rules
-  command: "/sbin/iptables -I INPUT 1 -p tcp --dport {{ item }} -j ACCEPT"
+- name: Configure sabnzbd to run as a service (to be replaced with config template)
+  lineinfile: dest=/etc/default/sabnzbdplus regexp=^{{ item.regex }}= line={{ item.regex }}={{ item.value }}
   with_items:
-    - 8080
-  notify:
-    - save iptables
-    - restart iptables
+    - {regex: USER, value: plex}
+    - {regex: HOST, value: 0.0.0.0}
+
+- name: Startup sabnzbd
+  service: name=sabnzbdplus state=started
+  sudo: yes

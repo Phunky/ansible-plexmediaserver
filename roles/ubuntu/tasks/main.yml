@@ -1,0 +1,33 @@
+---
+- name: Set hostname
+  hostname: name={{ hostname }}
+
+- name: Create user groups
+  group: name="{{ item.name }}" system="{{ item.system }}" state=present
+  with_items: user_groups
+
+- name: Create user accounts
+  user: name="{{ item.key }}" comment="{{ item.value.name }}" group="{{ item.value.group }}"
+  with_dict: users
+
+- name: Add authorized_keys
+  authorized_key: user="{{ item.key }}" key="{{ item.value }}"
+  with_dict: authorized_keys
+
+- name: Install common apps
+  apt: name={{ item }} state=latest
+  with_items:
+    - wget
+    - htop
+    - git
+
+- name: Lock down UFW
+  ufw: state=disabled policy=reject
+
+- name: Enable everything through UFW for local ip range
+  ufw: rule=allow src={{ item }}
+  with_items:
+  - 10.0.0.0/8
+  - 172.16.0.0/12
+  - 192.168.0.0/16
+

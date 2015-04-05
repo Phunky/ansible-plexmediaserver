@@ -1,6 +1,7 @@
 [pms]
-10.0.0.5 hostname=nuc
+10.0.0.8 hostname=vmNuc
+#10.0.0.5 hostname=nuc
 
 [nas]
-192.168.0.76 hostname=vm
+10.0.0.10 hostname=vmNas
 #10.0.0.3 hostname=nas

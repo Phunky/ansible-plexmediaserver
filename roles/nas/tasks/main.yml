@@ -1,8 +1,8 @@
 ---
-- include: samba.yml
+- include: nfs.yml
 - include: sabnzbd.yml
-- include: sickbeard.yml
-- include: nginx.yml
-- include: php-fpm.yml
+#- include: sonarr.yml
+#- include: nginx.yml
+#- include: php-fpm.yml
 # - include: mariadb.yml
 # - include: dnsmasq.yml

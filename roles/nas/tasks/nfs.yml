@@ -1,0 +1,21 @@
+---
+- name: Install NFS server
+  apt: name=nfs-kernel-server state=present
+
+- name: Create /export
+  file: path=/export owner=root group=pms mode=0777 state=directory
+
+- name: Create /export/home
+  file: path=/export/home owner=root group=pms mode=0777  state=directory
+
+- name: Create /export/series (This has to be added manually afterwards)
+  file: path=/export/series owner=root group=pms mode=0777  state=directory
+
+- name: Create /export/movies (This has to be added manually afterwards)
+  file: path=/export/movies owner=root group=pms mode=0777  state=directory
+
+- name: Create /export/music (This has to be added manually afterwards)
+  file: path=/export/music owner=root group=pms mode=0777  state=directory
+
+- name: Add /home mount to fstab
+  mount: name=/home src='home' fstype=ext4 state=present
